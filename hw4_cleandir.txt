@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for i in $@; do
+    if [[ "${i}" =~ [^/]$ || "${i}" =~ /{2,}$ ]]; then
+		i="${i}/"
+    fi
+
+    if [[ -d $i && -e $i ]]; then
+		rm -f $i*.bak $i*.backup $i*.tmp
+    else
+		echo "Ошибка: каталога \"${i}\" не существует"
+    fi
+done
+exit

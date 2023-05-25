@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if (( $# > 1 )); then
+    echo "Ошибка. Слишком много аргументов"
+    exit 1
+fi
+
+i=$1
+if [[ "${i}" =~ [^/]$ || "${i}" =~ /{2,}$ ]]; then
+    i="${i}/"
+fi
+
+for j in $i*; do
+    k=$(stat -c"%U" $j)
+    mkdir -p $i$k/
+    cp $j $i$k/
+done
+exit 0
+
